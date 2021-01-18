@@ -1,15 +1,19 @@
 public class Pokemon {
 
     private String name;
-    private String type;
     private int hp;
     private int attackPoints;
 
-    public Pokemon(String name, String type, int hp, int attackPoints) {
+    // number of Pokemon instantiated (created)
+    public static int numPokemon = 0;
+    // number of fainted Pokemon
+    public static int faintedPokemon = 0;
+
+    public Pokemon(String name, int hp, int attackPoints) {
         this.name = name;
-        this.type = type;
         this.hp = hp;
         this.attackPoints = attackPoints;
+        numPokemon++;
     }
 
     public String getName() {
@@ -18,14 +22,6 @@ public class Pokemon {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getHp() {
@@ -44,19 +40,33 @@ public class Pokemon {
         this.attackPoints = attackPoints;
     }
 
+    public static int getNumPokemon() {
+        return numPokemon;
+    }
+
+    public static int getFaintedPokemon() {
+        return faintedPokemon;
+    }
+
     // method when Pokemon hp < 0
     public boolean isFainted() {
         return(hp < 0);
     }
 
-    public void attackOnHp() {
+    public void attackOnHp(Pokemon pokemon) {
+
+        int currentHp = pokemon.getHp();
+        currentHp = currentHp - 50;
+        pokemon.setHp(currentHp);
+
         if(isFainted()){
-            System.out.println(name + "has fainted!");
+            System.out.println("\nOH MY GOD! What is WRONG with you?! " + name + " has fainted!\n");
+            faintedPokemon++;
         }else if(hp == 0){
-            System.out.println("Oh no! " + name + " has fainted!");
+            System.out.println("\nOH MY GOD! What is WRONG with you?! " + name + " has fainted!\n");
         }else {
             hp--;
-            System.out.println("Poor " + name + " , has been hit!");
+            System.out.println("\nPoor " + name + ", has been hit!\n");
         }
     }
 
