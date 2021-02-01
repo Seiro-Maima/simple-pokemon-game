@@ -2,17 +2,15 @@ public class Pokemon {
 
     private String name;
     private int hp;
-    private int attackPoints;
 
     // number of Pokemon instantiated (created)
     public static int numPokemon = 0;
     // number of fainted Pokemon
     public static int faintedPokemon = 0;
 
-    public Pokemon(String name, int hp, int attackPoints) {
+    public Pokemon(String name, int hp) {
         this.name = name;
         this.hp = hp;
-        this.attackPoints = attackPoints;
         numPokemon++;
     }
 
@@ -32,14 +30,6 @@ public class Pokemon {
         this.hp = hp;
     }
 
-    public int getAttackPoints() {
-        return attackPoints;
-    }
-
-    public void setAttackPoints(int attackPoints) {
-        this.attackPoints = attackPoints;
-    }
-
     public static int getNumPokemon() {
         return numPokemon;
     }
@@ -56,23 +46,35 @@ public class Pokemon {
     public void attackOnHp(Pokemon pokemon) {
 
         int currentHp = pokemon.getHp();
-        currentHp = currentHp - 50;
+        currentHp = currentHp - 60;
         pokemon.setHp(currentHp);
 
         if(isFainted()){
-            System.out.println("\nOH MY GOD! What is WRONG with you?! " + name + " has fainted!\n");
+            System.out.println( name + " has fainted!\n");
+            System.out.println("**Go Pokeball! Caught " + name + "!**");
             faintedPokemon++;
         }else if(hp == 0){
-            System.out.println("\nOH MY GOD! What is WRONG with you?! " + name + " has fainted!\n");
+            System.out.println( name + " has fainted!\n");
+            System.out.println("**Go Pokeball! Caught " + name + "!**");
         }else {
             hp--;
-            System.out.println("\nPoor " + name + ", has been hit!\n");
+            System.out.println(name + " has been hit!");
         }
     }
 
     @Override
     public String toString() {
-        return name + " has " + hp + " hp left.";
+
+        int currentHp = getHp();
+        // adding +1 since it keeps subtracting -1 from HP (?)
+        currentHp = currentHp + 1;
+        
+        // don't display HP if it's a zero or negative number
+        if(getHp() <= 0){
+            return "";
+        }
+
+        return name + " has " + currentHp + " hp left.";
     }
 
 }
